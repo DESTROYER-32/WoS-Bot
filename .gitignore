@@ -1,0 +1,7 @@
+__pycache__
+config.json
+players.db
+*.session
+.python-version
+Pipfile.lock
+Pipfile

@@ -1,0 +1,5 @@
+aiohttp
+certifi
+pyrogram
+tgcrypto
+ddddocr==1.5.6
