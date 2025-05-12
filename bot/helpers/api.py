@@ -1,10 +1,12 @@
-import ddddocr
+import base64
 import hashlib
+import ssl
+import time
+
 import aiohttp
 import certifi
-import base64
-import time
-import ssl
+import ddddocr
+
 
 class API:
     def __init__(self):

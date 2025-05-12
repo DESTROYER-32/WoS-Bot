@@ -1,0 +1,11 @@
+telegram:
+  api_id: 
+  api_hash: ""
+  bot_token: ""
+  admins: [123456789, 987654321]
+
+database:
+  schema: "sqlite+aiosqlite:///players.db"
+
+misc:
+  auto_rename_users: true

@@ -1,7 +1,0 @@
-{
-    "API_ID": "telegram_api_id",
-    "API_HASH": "telegram_api_hash",
-    "BOT_TOKEN": "telegram_bot_token",
-    "ADMINS": [1234567890],
-    "AUTO_RENAME_USERS": true
-}
