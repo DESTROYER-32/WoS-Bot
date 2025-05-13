@@ -98,7 +98,7 @@ The bot automatically creates a `players.db` SQLite database with a `players` ta
 Start the bot by running the main script:
 
 ```bash
-python bot.py
+python -m bot
 ```
 
 The bot will connect to Telegram and begin processing commands. Logs will be displayed in the terminal.
