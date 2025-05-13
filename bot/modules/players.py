@@ -20,37 +20,41 @@ async def add_user(client: Client, message: Message):
         await message.reply("❌ You are not authorized to use this command.")
         return
 
-    if len(message.command) < 3:
-        await message.reply("❌ Usage: /add ID RANK (1-5)")
+    if len(message.command) < 2:
+        await message.reply("❌ Usage: /add ID [RANK (1-5)]")
         return
 
-    player_id, rank = message.command[1], message.command[2]
+    player_id = message.command[1]
+    rank = 1
+
+    if len(message.command) >= 3:
+        try:
+            rank = int(message.command[2])
+            if rank not in range(1, 6):
+                raise ValueError
+        except ValueError:
+            await message.reply("❌ Rank must be a number between 1 and 5.")
+            return
+
     if not is_valid_id(player_id):
         await message.reply("❌ Invalid user ID.")
         return
 
-    try:
-        rank = int(rank)
-        if rank not in range(1, 6):
-            raise ValueError
-    except ValueError:
-        await message.reply("❌ Rank must be a number between 1 and 5.")
-        return
-
     await api.init_session()
-    err, _, _, user_data = await api.login_user(player_id)
+    try:
+        err, _, _, user_data = await api.login_user(player_id)
+        if err or not user_data or "data" not in user_data or "nickname" not in user_data["data"]:
+            await message.reply("❌ Error: User not found or invalid API response.")
+            return
 
-    if not err:
         name = sanitize_username(user_data["data"]["nickname"])
         success = await add_player(player_id, name, rank)
         if success:
             await message.reply(f"✅ Added user {name} to the database with rank R{rank}.")
         else:
             await message.reply("❌ User ID already exists in the database.")
-    else:
-        await message.reply("❌ Error: API returned invalid data.")
-
-    await api.session.close()
+    finally:
+        await api.session.close()
 
 
 @Client.on_message(filters.command("remove") & filters.private)

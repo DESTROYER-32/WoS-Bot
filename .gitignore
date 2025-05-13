@@ -5,3 +5,4 @@ players.db
 .python-version
 Pipfile.lock
 Pipfile
+*.session-journal
