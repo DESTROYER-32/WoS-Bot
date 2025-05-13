@@ -14,6 +14,7 @@ async def help_command(_: Client, message: Message):
         "- /start: Start the bot and get a welcome message.\n"
         "- /help: Show this help message.\n"
         "- /redeem CODE: Redeem a gift code for all players (admin only).\n"
+        "- /checkgiftcodes: Manually check for new gift codes in rss (admin only).\n"
         "- /add ID RANK: Add a new player with ID and rank (1-5) (admin only).\n"
         "- /remove ID: Remove a player by ID (admin only).\n"
         "- /list: List all players with pagination (admin only).\n"
