@@ -6,8 +6,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import declarative_base
 
 from bot import SCHEMA, logger
-
-BASE = declarative_base()
+from bot.database import BASE
 
 engine = create_async_engine(SCHEMA)
 async_session = async_sessionmaker(bind=engine, autoflush=True, expire_on_commit=False)

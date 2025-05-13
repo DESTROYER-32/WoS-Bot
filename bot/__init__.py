@@ -32,12 +32,16 @@ API_ID: Final[int] = telegram_config.get("api_id")
 API_HASH: Final[str] = telegram_config.get("api_hash")
 BOT_TOKEN: Final[str] = telegram_config.get("bot_token")
 ADMINS: Final[List[int]] = telegram_config.get("admins", [])
+LOG_CHANNEL: Final[int] = telegram_config.get("log_channel")
 
 # Database Constants
 SCHEMA: Final[str] = database_config.get("schema")
 
 # Misc Constants
 AUTO_RENAME_USERS: Final[str] = misc_config.get("auto_rename_users")
+RSS_URL: Final[str] = misc_config.get("rss_url")
+RSS_INTERVAL: Final[int] = misc_config.get("rss_interval")
 
+# Initialize API instance
 api: API = API()
 logger.info("Global API instance initialized")

@@ -9,3 +9,5 @@ database:
 
 misc:
   auto_rename_users: true
+  rss_url: "https://wosgiftcodes.com/rss.php"
+  rss_interval: 3600
