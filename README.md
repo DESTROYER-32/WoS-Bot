@@ -20,10 +20,11 @@ The base code for this bot was developed by [zenpaiang](https://github.com/zenpa
 ## Features
 
 - **Gift Code Redemption**: Redeem gift codes for all registered players with rate-limiting to comply with API restrictions.
+- **Auto Gift Code Redemption**: Uses RSS to get and Redeem gift codes for all registered players with scheduling.
 - **Player Management**: Add, remove, and update player ranks (1–5) with validation.
 - **Player Listing**: Display players grouped by rank with pagination for easy navigation.
 - **SQLite Database**: Store player data (ID, name, rank) efficiently using SQLite.
-- **External Configuration**: Load bot settings (API keys, admin IDs, etc.) from a `config.json` file.
+- **External Configuration**: Load bot settings (API keys, admin IDs, etc.) from a `config.yml` file.
 - **Auto-Rename**: Automatically update player names during redemption if enabled.
 - **Public Commands**: `/start` and `/help` commands accessible to all users, with a GitHub repository link in the help message.
 - **Admin Commands**: Restricted commands for authorized users to manage players and redeem codes.
@@ -55,22 +56,32 @@ pip install -r requirements.txt
 ```
 
 ### 3. Configure the Bot
-Create a `config.json` file in the project root with the following structure:
+Create a `config.yml` file in the project root with the following structure:
 
-```json
-{
-    "API_ID": 1234567,
-    "API_HASH": "your_api_hash",
-    "BOT_TOKEN": "your_bot_token",
-    "ADMINS": [your_telegram_user_id],
-    "AUTO_RENAME_USERS": true
-}
+```
+telegram:
+  api_id: 1234567
+  api_hash: "your_api_hash"
+  bot_token: "your_bot_token"
+  admins: [123456789, 987654321]
+
+database:
+  schema: "sqlite+aiosqlite:///players.db"
+
+misc:
+  auto_rename_users: true
+  rss_url: "https://wosgiftcodes.com/rss.php"
+  rss_interval: 3600
 ```
 
-- **API_ID** and **API_HASH**: Obtain these from [my.telegram.org](https://my.telegram.org).
-- **BOT_TOKEN**: Get this from [BotFather](https://t.me/BotFather) by creating a new bot.
-- **ADMINS**: List of Telegram user IDs (integers) authorized to use admin commands. To find your user ID, message `@userinfobot`.
-- **AUTO_RENAME_USERS**: Set to `true` to enable automatic name updates during redemption, or `false` to disable.
+- **telegram.api_id** and **telegram.api_hash**: Obtain these from [my.telegram.org](https://my.telegram.org) by creating an app.
+- **telegram.bot_token**: Get this from [BotFather](https://t.me/BotFather) by creating a new bot.
+- **telegram.admins**: List of Telegram user IDs (integers) authorized to use admin commands. To find your user ID, message `@userinfobot`. Replace `[123456789, 987654321]` with the actual user IDs of the admins.
+- **database.schema**: Specifies the SQLite database connection string. The default value (`sqlite+aiosqlite:///players.db`) creates a `players.db` file in the project root.
+- **misc.auto_rename_users**: Set to `true` to enable automatic name updates during redemption, or `false` to disable.
+- **misc.rss_url**: The URL of the RSS feed for gift codes. The default is `https://wosgiftcodes.com/rss.php`.
+- **misc.rss_interval**: The interval (in seconds) for checking the RSS feed. The default is `3600` (1 hour).
+
 
 ### 4. Implement the Game API
 The bot requires an API implementation for *Whiteout Survival* to handle login and gift code redemption. The placeholder `api/api.py` file must be replaced with a working implementation. Ensure it provides the following methods:
@@ -112,6 +123,7 @@ These commands are restricted to users listed in the `ADMINS` array in `config.j
 - **/add ID RANK**: Adds a new player with the specified ID and rank (1–5).
   - Example: `/add 123456789 5`
   - Response: "✅ Added user [Name] to the database with rank R5."
+  - Example: `/add 123456789` (Adds with player rank as 1)
 - **/remove ID**: Removes a player by their ID.
   - Example: `/remove 123456789`
   - Response: "✅ Removed user [Name] from the database."
@@ -121,6 +133,7 @@ These commands are restricted to users listed in the `ADMINS` array in `config.j
 - **/setrank ID RANK**: Updates a player's rank (1–5).
   - Example: `/setrank 123456789 4`
   - Response: "✅ Successfully set [Name]'s rank to R4."
+- **/giftcodecheck**: Manually check RSS for new gift code.
 
 ## Troubleshooting
 
