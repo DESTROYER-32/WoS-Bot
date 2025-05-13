@@ -64,6 +64,7 @@ telegram:
   api_hash: "your_api_hash"
   bot_token: "your_bot_token"
   admins: [123456789, 987654321]
+  log_channel: -100123456789
 
 database:
   schema: "sqlite+aiosqlite:///players.db"
@@ -77,6 +78,7 @@ misc:
 - **telegram.api_id** and **telegram.api_hash**: Obtain these from [my.telegram.org](https://my.telegram.org) by creating an app.
 - **telegram.bot_token**: Get this from [BotFather](https://t.me/BotFather) by creating a new bot.
 - **telegram.admins**: List of Telegram user IDs (integers) authorized to use admin commands. To find your user ID, message `@userinfobot`. Replace `[123456789, 987654321]` with the actual user IDs of the admins.
+- **telegram.log_channel**: ID of Channel where bot is added and admin if you want auto redemption logs in channel instead of ADMIN'S DM (leave empty for this)
 - **database.schema**: Specifies the SQLite database connection string. The default value (`sqlite+aiosqlite:///players.db`) creates a `players.db` file in the project root.
 - **misc.auto_rename_users**: Set to `true` to enable automatic name updates during redemption, or `false` to disable.
 - **misc.rss_url**: The URL of the RSS feed for gift codes. The default is `https://wosgiftcodes.com/rss.php`.
