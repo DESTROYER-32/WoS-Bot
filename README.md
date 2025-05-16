@@ -36,7 +36,6 @@ To run the bot, ensure you have the following installed:
 
 - Python 3.11 or higher
 - A Telegram bot token (obtained from [BotFather](https://t.me/BotFather))
-- A *Whiteout Survival* game API implementation (not included; see `api/api.py` placeholder)
 
 ## Setup and Installation
 
@@ -86,7 +85,7 @@ misc:
 
 
 ### 4. Implement the Game API
-The bot requires an API implementation for *Whiteout Survival* to handle login and gift code redemption. The placeholder `api/api.py` file must be replaced with a working implementation. Ensure it provides the following methods:
+The bot requires an API implementation for *Whiteout Survival* to handle login and gift code redemption. The placeholder `bot/helpers/api.py` file must be replaced with a working implementation. Ensure it provides the following methods:
 - `init_session()`: Initialize the API session.
 - `login_user(player_id)`: Log in a player and return user data.
 - `redeem_code(code, player_id)`: Redeem a gift code for a player.
@@ -141,7 +140,7 @@ These commands are restricted to users listed in the `ADMINS` array in `config.j
 
 - **Bot Not Responding**: Verify the `BOT_TOKEN`, `API_ID`, and `API_HASH` in `config.json`. Ensure the bot is running and connected to Telegram.
 - **Database Errors**: Check if `players.db` is accessible and writable. Delete and recreate the database if corrupted.
-- **API Errors**: Ensure the `api/api.py` implementation is correct and the *Whiteout Survival* API is accessible.
+- **API Errors**: Ensure the `bot/helpers/api.py` implementation is correct and the *Whiteout Survival* API is accessible.
 - **Command Restrictions**: Confirm your Telegram user ID is in the `ADMINS` list for admin commands.
 
 ## Credits
